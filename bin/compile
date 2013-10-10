@@ -97,12 +97,18 @@ status "Building runtime environment"
 mkdir -p $build_dir/.profile.d
 echo "export PATH=\"\$HOME/vendor/node/bin:$HOME/bin:\$HOME/node_modules/.bin:\$PATH\"" > $build_dir/.profile.d/nodejs.sh
 
-#* rasky: run grunt
+# install compass
+status "Installing Compass"
+export GEM_HOME=$build_dir/.gem/ruby/1.9.1
+PATH="$GEM_HOME/bin:$PATH"
+HOME=$build_dir gem install compass --user-install --no-rdoc --no-ri
+
+# run grunt
 if [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_dir/Gruntfile.coffee ]; then
-  echo "-----> Found Gruntfile, running grunt heroku:$NODE_ENV task"
+  status "Found Gruntfile, running grunt"
   $build_dir/node_modules/.bin/grunt | indent 
 else
-echo "-----> No Gruntfile (grunt.js, Gruntfile.js, Gruntfile.coffee) found"
+status "No Gruntfile (grunt.js, Gruntfile.js, Gruntfile.coffee) found"
 fi
 
 # Post to nomnom
