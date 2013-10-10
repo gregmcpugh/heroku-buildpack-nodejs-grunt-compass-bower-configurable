@@ -83,8 +83,6 @@ else
 
   status "Installing dependencies"
   npm install --production | indent
-  npm install grunt
-  npm install grunt-cli
 
   status "Caching node and node_modules for future builds"
   rm -rf $cache_dir
@@ -102,7 +100,7 @@ echo "export PATH=\"\$HOME/vendor/node/bin:$HOME/bin:\$HOME/node_modules/.bin:\$
 #* rasky: run grunt
 if [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_dir/Gruntfile.coffee ]; then
   echo "-----> Found Gruntfile, running grunt heroku:$NODE_ENV task"
-  grunt | indent 
+  $build_dir/node_modules/.bin/grunt | indent 
 else
 echo "-----> No Gruntfile (grunt.js, Gruntfile.js, Gruntfile.coffee) found"
 fi
