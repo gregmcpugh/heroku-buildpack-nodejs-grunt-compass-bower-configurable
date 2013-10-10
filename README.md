@@ -1,7 +1,7 @@
 Grunt support
 =============
 This buildpack uses the official Node.js buildpack refactoring called "diet" (faster compilation),
-and incorporate auto-execution of grunt.
+and incorporate installation of compass and auto-execution of grunt.
 
 
 Heroku Buildpack for Node.js
