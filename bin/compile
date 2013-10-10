@@ -106,7 +106,7 @@ HOME=$build_dir gem install compass --user-install --no-rdoc --no-ri
 # run grunt
 if [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_dir/Gruntfile.coffee ]; then
   status "Found Gruntfile, running grunt"
-  $build_dir/node_modules/.bin/grunt | indent 
+  $build_dir/node_modules/.bin/grunt heroku | indent 
 else
 status "No Gruntfile (grunt.js, Gruntfile.js, Gruntfile.coffee) found"
 fi
