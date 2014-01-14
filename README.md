@@ -24,7 +24,7 @@ git commit -am "fakeout" --allow-empty
 git push heroku
 ```
 
-Here's a summary of the differences between the current official buildpack and this _diet_ version:
+Here's a summary of the differences between the current official buildpack and this _diet fork_ version:
 
 The old buildpack:
 
@@ -48,6 +48,10 @@ The new buildpack:
 - Caches the `node_modules` directory across builds.
 - Runs `npm prune` after restoring cached modules, to ensure that any modules formerly used by your app aren't needlessly installed and/or compiled.
 
+This fork:
+
+- Allows you to configure the location of the application inside the project
+
 Documentation
 -------------
 
@@ -57,6 +61,22 @@ For more information about buildpacks and Node.js, see these Dev Center articles
 - [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/nodejs)
 - [Buildpacks](https://devcenter.heroku.com/articles/buildpacks)
 - [Buildpack API](https://devcenter.heroku.com/articles/buildpack-api)
+
+Specific to this fork
+---------------------
+This fork can take an additional config file which allows you to specify where to find the `package.json`. The gruntfile (`grunt.js`, `Gruntfile.js`, `Gruntfile.coffee`) must be in the same directory. The config file should be `.heroku_config` and located in the root of your project.
+
+Example `.heroku_config` file:
+
+	export NODE_WORKING_DIRECTORY='/console'
+	export NPM_COMMAND='npm install'
+	export GRUNT_COMMAND='grunt heroku'
+
+- `NODE_WORKING_DIRECTORY`- The location from the root of your project where you can find the `package.json` and gruntfile (`grunt.js`, `Gruntfile.js`, `Gruntfile.coffee`). If it is not specified it will look in the root of your application.
+- `NPM_COMMAND` - The command that should be run to setup your dependencies. It defaults to `npm install --production`. We `eval` this string, so procede with caution.
+- `GRUNT_COMMAND` - The command that should be run to execute your grunt tasks. It defaults to `grunt heroku`. We `eval` this string, so procede with caution.
+
+These commands are all executed from the directory you specify with `NODE_WORKING_DIRECTORY`, and you can access the current location using `$build_dir`.
 
 Hacking
 -------

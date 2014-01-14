@@ -10,7 +10,7 @@ echo "=====> build_dir is $build_dir"
 
 cache_basedir=$2
 bp_dir=$(cd $(dirname $0); cd ..; pwd)
-stable_version="0.10.22"
+stable_version="0.10.24"
 
 source $bp_dir/bin/common.sh
 
@@ -89,7 +89,12 @@ else
   npm rebuild | indent
 
   status "Installing dependencies"
-  npm install | indent
+  if [ -n "$NPM_COMMAND" ]; then
+    eval $NPM_COMMAND | indent
+  else
+    npm install --production | indent
+  fi
+
 
   status "Caching node and node_modules for future builds"
   rm -rf $cache_dir
@@ -116,7 +121,21 @@ fi
 # run grunt
 if [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_dir/Gruntfile.coffee ]; then
   status "Found Gruntfile, running grunt"
-  $build_dir/node_modules/.bin/grunt heroku | indent
+
+  # Error if grunt is not found
+  if [ ! -f $build_dir/node_modules/.bin/grunt ]; then
+    echo "grunt binary not found. Make sure you add grunt-cli to your package.json!"
+  else
+    if [ -n "$GRUNT_COMMAND" ]; then
+      alias grunt=$build_dir/node_modules/.bin/grunt
+      eval $GRUNT_COMMAND | indent
+    else
+      $build_dir/node_modules/.bin/grunt heroku | indent
+    fi
+  fi
+
+
+
 else
 status "No Gruntfile (grunt.js, Gruntfile.js, Gruntfile.coffee) found"
 fi
