@@ -126,12 +126,7 @@ if [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_d
   if [ ! -f $build_dir/node_modules/.bin/grunt ]; then
     echo "grunt binary not found. Make sure you add grunt-cli to your package.json!"
   else
-    if [ -n "$GRUNT_COMMAND" ]; then
-      alias grunt=$build_dir/node_modules/.bin/grunt
-      eval $GRUNT_COMMAND | indent
-    else
-      $build_dir/node_modules/.bin/grunt heroku | indent
-    fi
+    $build_dir/node_modules/.bin/grunt heroku | indent
   fi
 
 
