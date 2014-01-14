@@ -51,6 +51,7 @@ The new buildpack:
 This fork:
 
 - Allows you to configure the location of the application inside the project
+- Allows you to specify the npm and grunt commands to run.
 
 Documentation
 -------------
