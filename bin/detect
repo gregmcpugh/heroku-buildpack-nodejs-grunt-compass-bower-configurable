@@ -2,7 +2,6 @@
 # bin/detect <build-dir>
 
 if [ -f $1/.heroku_config ]; then
-  echo "=====> Loading heroku config from $1/.heroku_config"
   source $1/.heroku_config
 fi
 
