@@ -91,10 +91,15 @@ else
   status "Installing dependencies"
   if [ -n "$NPM_COMMAND" ]; then
     eval $NPM_COMMAND | indent
+    $rc = $?
   else
     npm install --production | indent
+    $rc = $?
   fi
 
+  if [ $rc != 0 ]; then
+    exit $rc
+  fi
 
   status "Caching node and node_modules for future builds"
   rm -rf $cache_dir
@@ -125,11 +130,14 @@ if [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_d
   # Error if grunt is not found
   if [ ! -f $build_dir/node_modules/.bin/grunt ]; then
     echo "grunt binary not found. Make sure you add grunt-cli to your package.json!"
+    exit 1
   else
     $build_dir/node_modules/.bin/grunt heroku | indent
+    $rc = $?
+    if [ $rc != 0 ]; then
+      exit $rc
+    fi
   fi
-
-
 
 else
 status "No Gruntfile (grunt.js, Gruntfile.js, Gruntfile.coffee) found"
