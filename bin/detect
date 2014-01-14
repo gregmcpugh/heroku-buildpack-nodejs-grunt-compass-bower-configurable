@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 # bin/detect <build-dir>
 
-if [ -f $1/package.json ]; then
+if [ -f $1/.heroku_config ]; then
+  echo "=====> Loading heroku config from $1/.heroku_config"
+  source $1/.heroku_config
+fi
+
+if [ -f $1$NODE_WORKING_DIRECTORY/package.json ]; then
   echo "Node.js" && exit 0
 else
   echo "no" && exit 1
