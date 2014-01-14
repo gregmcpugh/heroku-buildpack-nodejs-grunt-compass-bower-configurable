@@ -89,7 +89,7 @@ else
   npm rebuild | indent
 
   status "Installing dependencies"
-  npm install --production | indent
+  npm install | indent
 
   status "Caching node and node_modules for future builds"
   rm -rf $cache_dir
