@@ -3,7 +3,7 @@ Grunt support
 This buildpack uses the official Node.js buildpack refactoring called "diet" (faster compilation),
 and incorporate installation of compass and auto-execution of grunt.
 
-The command that is run is `grunt heroku`.
+The command that runs is `grunt heroku`.
 
 Heroku Buildpack for Node.js
 ============================
@@ -70,10 +70,10 @@ This fork can take an additional config file which allows you to specify where t
 
 Example `.heroku_config` file:
 
-  export NODE_WORKING_DIRECTORY='/console'
-  export NPM_COMMAND='npm install'
+    export NODE_WORKING_DIRECTORY='/console'
+    export NPM_COMMAND='npm install'
 
-- `NODE_WORKING_DIRECTORY`- The location from the root of your project where you can find the `package.json` and gruntfile (`grunt.js`, `Gruntfile.js`, `Gruntfile.coffee`). If it is not specified it will look in the root of your application.
+- `NODE_WORKING_DIRECTORY`- The location from the root of your project where you can find the `package.json` and gruntfile (`grunt.js`, `Gruntfile.js`, `Gruntfile.coffee`). If it is not specified it will look in the root of your application. The string value is just appended to the value that is passed to the bin/compile and bin/detect scripts, so be sure to prefix it with a forward slash.
 - `NPM_COMMAND` - The command that should be run to setup your dependencies. It defaults to `npm install --production` if you do not specify anything. We `eval` this string, so procede with caution.
 
 These commands are all executed from the directory you specify with `NODE_WORKING_DIRECTORY`, and you can access the current location using `$build_dir`.
