@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
-build_dir=$1
+if [ -f $1/.heroku_config ]; then
+  source $1/.heroku_config
+fi
+
+build_dir=$1$NODE_WORKING_DIRECTORY
 cache_basedir=$2
 bp_dir=$(cd $(dirname $0); cd ..; pwd)
-stable_version="0.10.20"
+stable_version="0.10.22"
 
 source $bp_dir/bin/common.sh
 
@@ -109,7 +113,7 @@ fi
 # run grunt
 if [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_dir/Gruntfile.coffee ]; then
   status "Found Gruntfile, running grunt"
-  $build_dir/node_modules/.bin/grunt heroku | indent 
+  $build_dir/node_modules/.bin/grunt heroku | indent
 else
 status "No Gruntfile (grunt.js, Gruntfile.js, Gruntfile.coffee) found"
 fi
