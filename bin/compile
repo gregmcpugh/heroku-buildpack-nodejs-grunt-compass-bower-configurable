@@ -135,7 +135,7 @@ if [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_d
       
     # Function that invokes grunt with params
     function grunt () {
-      $build_dir/node_modules/.bin/grunt $1 $2
+      $build_dir/node_modules/.bin/grunt $1
       $rc = $?
       
       if [ $rc != 0 ]; then
