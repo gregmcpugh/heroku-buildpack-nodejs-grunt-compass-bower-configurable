@@ -136,7 +136,7 @@ if [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_d
     # Function that invokes grunt with params
     function grunt () {
       $build_dir/node_modules/.bin/grunt $1
-      $rc = $?
+      rc=$?
       
       if [ $rc != 0 ]; then
         exit $rc
@@ -149,7 +149,7 @@ if [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_d
     else
       echo "Executing grunt command: grunt heroku"
       $build_dir/node_modules/.bin/grunt heroku | indent
-      $rc = $?
+      rc=$?
       
       if [ $rc != 0 ]; then
         exit $rc
