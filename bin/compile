@@ -132,7 +132,6 @@ if [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_d
     echo "grunt binary not found. Make sure you add grunt-cli to your package.json!"
     exit 1
   else
-    $build_dir/node_modules/.bin/grunt heroku | indent
       
     # Function that invokes grunt with params
     function grunt () {
