@@ -91,10 +91,10 @@ else
   status "Installing dependencies"
   if [ -n "$NPM_COMMAND" ]; then
     eval $NPM_COMMAND | indent
-    $rc = $?
+    rc=$?
   else
     npm install --production | indent
-    $rc = $?
+    rc=$?
   fi
 
   if [ $rc != 0 ]; then
