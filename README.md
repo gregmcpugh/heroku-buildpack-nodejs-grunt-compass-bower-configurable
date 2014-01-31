@@ -67,7 +67,7 @@ For more information about buildpacks and Node.js, see these Dev Center articles
 Specific to this fork
 ---------------------
 
-
+Grunt, grunt-cli, and bower are installed for you so they do not have to be included in project dependencies. `bower install` is run to install bower dependencies.
 
 Specific to the treasure-data/heroku-buildpack-nodejs-grunt-compass-configurable fork
 -------------------------------------------------------------------------------------
