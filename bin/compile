@@ -101,6 +101,12 @@ else
     exit $rc
   fi
 
+  # make sure that grunt, grunt-cli, and bower are installed locally
+  status "Install grunt-cli, grunt, and bower dependencies"
+  npm install grunt-cli
+  npm install grunt
+  npm install bower
+
   status "Caching node and node_modules for future builds"
   rm -rf $cache_dir
   mkdir -p $cache_dir
@@ -123,14 +129,8 @@ if [ ! -f $GEM_HOME/bin/compass ]; then
   HOME="$cache_basedir/ruby" gem install compass --user-install --no-rdoc --no-ri
 fi
 
-# make sure that grunt, grunt-cli, and bower are installed locally
-npm install grunt-cli
-npm install grunt
-npm install -g bower
-
 # install bower components
 status "Installing bower components"
-# $build_dir/node_modules/bower/bin/bower install
 bower install
 
 # run grunt
