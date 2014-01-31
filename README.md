@@ -66,6 +66,11 @@ For more information about buildpacks and Node.js, see these Dev Center articles
 
 Specific to this fork
 ---------------------
+
+
+
+Specific to the treasure-data/heroku-buildpack-nodejs-grunt-compass-configurable fork
+-------------------------------------------------------------------------------------
 This fork can take an additional config file which allows you to specify where to find the `package.json`. The gruntfile (`grunt.js`, `Gruntfile.js`, `Gruntfile.coffee`) must be in the same directory. The config file should be `.heroku_config` and located in the root of your project.
 
 Example `.heroku_config` file:
